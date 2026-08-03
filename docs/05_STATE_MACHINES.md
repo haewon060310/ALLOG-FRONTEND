@@ -1,0 +1,138 @@
+# 상태 머신
+
+## 하트
+
+```text
+AVAILABLE
+  └─ 그룹 참가 → RESERVED
+
+RESERVED
+  ├─ 그룹 시작 → SPENT
+  ├─ 모집 실패 → RETURNED
+  ├─ 운영자 취소 → RETURNED
+  └─ 허용된 시작 전 취소 → RETURNED
+
+AVAILABLE 또는 RESERVED
+  └─ 유효기간 만료 → EXPIRED
+```
+
+## 그룹
+
+```text
+RECRUITING
+  ├─ 최소 인원 충족 → READY
+  ├─ 모집 실패 → RECRUITMENT_FAILED
+  └─ 운영 취소 → CANCELLED
+
+READY
+  ├─ 시작일 도달 → START_SCHEDULED
+  ├─ 빠른 시작 동의 완료 → START_SCHEDULED
+  └─ 취소 → CANCELLED
+
+START_SCHEDULED
+  └─ 시작 트랜잭션 완료 → ACTIVE
+
+ACTIVE
+  └─ 기간 종료 → SETTLEMENT_PENDING
+
+SETTLEMENT_PENDING
+  └─ 신고 기간 종료 및 검토 완료 → SETTLING
+
+SETTLING
+  ├─ 성공 → COMPLETED
+  └─ 실패 → SETTLEMENT_PENDING 또는 운영자 처리
+```
+
+## 멤버십
+
+```text
+PENDING
+→ CONFIRMED
+→ ACTIVE
+→ COMPLETED
+
+CONFIRMED
+→ WITHDRAWN
+
+ACTIVE
+→ WITHDRAWN 또는 SANCTIONED
+```
+
+## 인증
+
+```text
+SUBMITTED
+→ ANALYZING
+
+ANALYZING
+├─ PROVISIONALLY_APPROVED
+├─ NEEDS_REVIEW
+└─ RESUBMISSION_REQUIRED
+
+PROVISIONALLY_APPROVED
+├─ FINAL_APPROVED
+├─ AUTO_REVIEW
+├─ APPEALED
+└─ OPERATOR_REVIEW
+
+NEEDS_REVIEW
+├─ RESUBMISSION_REQUIRED
+├─ OPERATOR_REVIEW
+└─ PROVISIONALLY_APPROVED
+
+RESUBMISSION_REQUIRED
+→ ANALYZING
+
+APPEALED
+→ OPERATOR_REVIEW
+
+OPERATOR_REVIEW
+├─ FINAL_APPROVED
+└─ FINAL_REJECTED
+```
+
+## 신고
+
+```text
+RECEIVED
+→ AUTO_REVIEW
+→ RESUBMISSION_WAIT 또는 OPERATOR_REVIEW
+→ APPROVAL_MAINTAINED 또는 REJECTION_CONFIRMED
+
+반복 허위 신고
+→ ABUSE_CONFIRMED
+```
+
+## 재도전 미션
+
+```text
+AVAILABLE
+→ IN_PROGRESS
+→ COMPLETED
+→ REWARDED
+
+AVAILABLE 또는 IN_PROGRESS
+→ EXPIRED
+
+운영 제재
+→ BLOCKED
+```
+
+## 정산
+
+```text
+PENDING
+→ SETTLING
+→ COMPLETED
+
+SETTLING
+→ FAILED
+→ 재시도 시 SETTLING
+```
+
+## 정합성 필수 규칙
+
+- 상태 변경은 정의된 방향으로만 허용한다.
+- 최종 승인 또는 최종 반려 상태는 일반 사용자 요청으로 되돌리지 않는다.
+- 최종 정산 후 점수 변경은 운영자 재정산 절차를 거쳐야 한다.
+- 모든 운영자 판정과 자산 조정은 감사 로그를 남긴다.

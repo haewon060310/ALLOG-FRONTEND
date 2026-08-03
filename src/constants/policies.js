@@ -1,0 +1,27 @@
+export const INITIAL_HEART_COUNT = 3;
+export const MVP_GROUP_MEMBER_COUNT = 5;
+export const MVP_CHALLENGE_DURATION_DAYS = 7;
+export const MVP_REQUIRED_HEART_COUNT = 1;
+export const GROUP_SUCCESS_THRESHOLD = 80;
+export const MIN_VALID_VERIFICATION_DAYS = 4;
+export const RETRY_REWARD_COOLDOWN_DAYS = 7;
+export const MAX_RECRUITMENT_EXTENSION_COUNT = 1;
+
+// 6일의 값은 6일 이상에 공통으로 적용한다.
+export const CONSECUTIVE_SUCCESS_SCORES = Object.freeze({
+  1: 3,
+  2: 5,
+  3: 8,
+  4: 10,
+  5: 12,
+  6: 15,
+});
+
+export const USER_SCORE_WEIGHTS = Object.freeze({
+  GOAL_ACHIEVEMENT_RATE: 45,
+  ON_TIME_VERIFICATION_RATE: 15,
+  CONSECUTIVE_SUCCESS: 15,
+  VERIFICATION_RELIABILITY: 10,
+  GROUP_CONTRIBUTION: 10,
+  CHEER_AND_PARTICIPATION: 5,
+});
