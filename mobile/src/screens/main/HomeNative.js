@@ -37,7 +37,7 @@ export default function HomeNative({ navigation }) {
   return (
     <View style={s.screen}>
       <View style={s.header}>
-        <Text style={s.logo}>ALLOG</Text>
+        <Text style={s.logo}>홈</Text>
         <CoachMascotButton
           source={coachImage}
           onPress={() => navigation.navigate("AiCoach")}
@@ -49,13 +49,14 @@ export default function HomeNative({ navigation }) {
             icon={<Heart width={21} height={19} />}
             value={String(hearts)}
             label="보유 하트"
-            note="하트 이벤트 가기 >"
+            note="하트 얻으러 가기 >"
             onPress={() => navigation.navigate("HeartEvent")}
           />
           <Card
             icon={<Reward width={18} height={18} />}
             value={String(points)}
             label="포인트"
+            labelColor="#c08a24"
             note="포인트 혜택 보러가기 >"
             onPress={() => navigation.navigate("Reward")}
           />
@@ -68,19 +69,19 @@ export default function HomeNative({ navigation }) {
               style={s.verify}
               onPress={() => navigation.navigate("Camera")}
             >
-              <Text style={s.verifyText}>인증하러 가기</Text>
+              <Text style={s.verifyText}>인증하러 하기</Text>
             </Pressable>
           </View>
           <View style={s.routineBottom}>
             <Text style={s.deadline}>마감 오후 10:00</Text>
             <View style={s.vline} />
-            <Text style={s.deadline}>3시간 12분 남음</Text>
+            <Text style={s.deadlineRemaining}>3시간 12분 남음</Text>
           </View>
         </AnimatedEntrance>
         <AnimatedEntrance delay={120}>
           <Pressable
             style={s.stats}
-            onPress={() => navigation.navigate("Group")}
+            onPress={() => navigation.navigate("My")}
           >
             <View style={s.stat}>
               <View style={s.inline}>
@@ -100,7 +101,7 @@ export default function HomeNative({ navigation }) {
               </View>
               <Text>
                 <Text style={s.statBig}>3</Text>
-                <Text style={s.statLabel}>일째</Text>
+                <Text style={s.daySuffix}> 일째</Text>
               </Text>
             </View>
           </Pressable>
@@ -122,6 +123,9 @@ export default function HomeNative({ navigation }) {
                 },
               ]}
             />
+            <View style={s.goalMarker}>
+              <Text style={s.goalMarkerText}>▲</Text>
+            </View>
           </View>
           <Text style={s.goal}>개인 목표 70%</Text>
         </AnimatedEntrance>
@@ -129,14 +133,16 @@ export default function HomeNative({ navigation }) {
     </View>
   );
 }
-function Card({ icon, value, label, note, onPress }) {
+function Card({ icon, value, label, labelColor, note, onPress }) {
   return (
     <Pressable style={s.card} onPress={onPress}>
       <View style={s.inline}>
         {icon}
         <Text style={s.value}>{value}</Text>
       </View>
-      <Text style={s.cardLabel}>{label}</Text>
+      <Text style={[s.cardLabel, labelColor && { color: labelColor }]}>
+        {label}
+      </Text>
       <Text style={s.note}>{note}</Text>
     </Pressable>
   );
@@ -183,7 +189,13 @@ const s = StyleSheet.create({
     borderColor: "#e7e3d8",
     overflow: "hidden",
   },
-  routineTop: { backgroundColor: "#edf2ec", padding: 20, alignItems: "center" },
+  routineTop: {
+    backgroundColor: "#edf2ec",
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 20,
+    alignItems: "center",
+  },
   smallGreen: { fontSize: 13, fontWeight: "600", color: "#14453a" },
   routineTitle: { marginTop: 8, fontSize: 20, fontWeight: "700" },
   verify: {
@@ -191,7 +203,7 @@ const s = StyleSheet.create({
     width: "100%",
     height: 35,
     borderRadius: 15,
-    backgroundColor: "#000",
+    backgroundColor: "#14453a",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -205,6 +217,7 @@ const s = StyleSheet.create({
     gap: 16,
   },
   deadline: { fontSize: 13, fontWeight: "700" },
+  deadlineRemaining: { fontSize: 13, fontWeight: "600" },
   vline: { width: 1, height: 16, backgroundColor: "#e7e3d8" },
   stats: {
     height: 81,
@@ -217,7 +230,13 @@ const s = StyleSheet.create({
   },
   stat: { flex: 1, alignItems: "center", gap: 4 },
   statLabel: { fontSize: 12, fontWeight: "700" },
-  statBig: { fontSize: 25, fontWeight: "700", color: "#14453a" },
+  statBig: {
+    fontFamily: "Pretendard",
+    fontSize: 25,
+    fontWeight: "900",
+    color: "#14453a",
+  },
+  daySuffix: { fontSize: 12, fontWeight: "700" },
   vlineTall: { width: 1, height: 47, backgroundColor: "#e7e3d8" },
   gaugeCard: {
     borderRadius: 14,
@@ -230,6 +249,7 @@ const s = StyleSheet.create({
   gaugeLabel: { fontSize: 13, fontWeight: "600" },
   rate: { fontSize: 20, fontWeight: "900", color: "#669884" },
   track: {
+    position: "relative",
     marginTop: 12,
     height: 9,
     borderRadius: 5,
@@ -239,6 +259,17 @@ const s = StyleSheet.create({
     height: 9,
     borderRadius: 5,
     backgroundColor: "#669884",
+  },
+  goalMarker: {
+    position: "absolute",
+    top: 13,
+    left: "70%",
+    transform: [{ translateX: -5 }],
+  },
+  goalMarkerText: {
+    fontSize: 10,
+    lineHeight: 10,
+    color: "#c08a24",
   },
   goal: {
     marginTop: 8,

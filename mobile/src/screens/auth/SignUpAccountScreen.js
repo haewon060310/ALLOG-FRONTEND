@@ -77,7 +77,10 @@ const s = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "#fefefe",
     paddingHorizontal: 16,
-    fontSize: 16,
+    fontFamily: "Pretendard",
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#4a4a4a",
   },
   check: {
     position: "absolute",
@@ -98,7 +101,7 @@ const s = StyleSheet.create({
   next: {
     position: "absolute",
     left: 31,
-    top: 752,
+    bottom: 52,
     width: 338,
     height: 50,
     borderRadius: 20,

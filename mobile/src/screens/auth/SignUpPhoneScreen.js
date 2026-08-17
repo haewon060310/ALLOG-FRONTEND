@@ -281,7 +281,7 @@ const s = StyleSheet.create({
   next: {
     position: "absolute",
     left: 31,
-    top: 776,
+    bottom: 52,
     width: 338,
     height: 50,
     borderRadius: 20,

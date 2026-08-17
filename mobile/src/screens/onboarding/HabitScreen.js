@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import OnboardingShell from "../../components/OnboardingShell";
 import Care from "../../../assets/images/SelfCareIcon.svg";
 import Exercise from "../../../assets/images/ExerciseIcon.svg";
@@ -28,25 +28,51 @@ export default function HabitScreen({ navigation }) {
         {items.map(([name, sub, Icon]) => {
           const active = selected.includes(name);
           return (
-            <Pressable
+            <HabitCard
               key={name}
+              name={name}
+              sub={sub}
+              Icon={Icon}
+              active={active}
               onPress={() => toggle(name)}
-              style={[s.card, active && s.active]}
-            >
-              <Icon width={24} height={24} />
-              <Text style={s.name}>{name}</Text>
-              <Text style={s.sub}>{sub}</Text>
-            </Pressable>
+            />
           );
         })}
       </View>
     </OnboardingShell>
   );
 }
+function HabitCard({ name, sub, Icon, active, onPress }) {
+  const scale = useRef(new Animated.Value(1)).current;
+  const animate = (toValue) => {
+    Animated.spring(scale, {
+      toValue,
+      speed: 32,
+      bounciness: toValue === 1 ? 5 : 0,
+      useNativeDriver: true,
+    }).start();
+  };
+  const iconSize = name === "운동" ? 34 : 24;
+  return (
+    <Animated.View style={[s.cardWrap, { transform: [{ scale }] }]}>
+      <Pressable
+        onPress={onPress}
+        onPressIn={() => animate(0.92)}
+        onPressOut={() => animate(1)}
+        style={[s.card, active && s.active]}
+      >
+        <Icon width={iconSize} height={iconSize} />
+        <Text style={s.name}>{name}</Text>
+        <Text style={s.sub}>{sub}</Text>
+      </Pressable>
+    </Animated.View>
+  );
+}
 const s = StyleSheet.create({
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
+  cardWrap: { width: "48%" },
   card: {
-    width: "48%",
+    width: "100%",
     minHeight: 98,
     borderWidth: 1,
     borderColor: "#e7e3d8",
