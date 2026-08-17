@@ -154,14 +154,13 @@ function Card({ icon, value, label, labelColor, note, onPress }) {
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "#f7f6f3" },
   header: {
-    height: 76,
     paddingHorizontal: 30,
     paddingTop: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  logo: { fontSize: 28, fontWeight: "700" },
+  logo: { fontFamily: "Pretendard", fontSize: 28, fontWeight: "900" },
   content: {
     paddingHorizontal: 30,
     paddingTop: 20,

@@ -295,7 +295,7 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  title: { fontSize: 28, fontWeight: "700" },
+  title: { fontFamily: "Pretendard", fontSize: 28, fontWeight: "700" },
   content: {
     paddingHorizontal: 30,
     paddingTop: 20,

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { View, Text, Pressable, ScrollView, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import Svg, { Path } from 'react-native-svg';
 import Animated, { FadeInUp, FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
 
-import CoachMascotButton from '@/components/common/CoachMascotButton';
+import CoachMascotButton from '../../mobile/src/components/CoachMascotButton';
+import { useAppState } from '../../mobile/src/state/AppState';
+import { getCoachImage } from '../../mobile/src/utils/coach';
 import Icon from '@/components/common/Icon';
 import AnimatedGauge from '@/components/common/AnimatedGauge';
 import CheerOverlay from '@/components/group/CheerOverlay';
@@ -245,6 +246,7 @@ function InfoView({ toast }) {
 // ── 내 그룹 (메인) ──
 export default function GroupScreen() {
   const router = useRouter();
+  const { coachStyle } = useAppState();
   const [tab, setTab] = useState('feed');
   const [toastMsg, setToastMsg] = useState('');
   const [cheerKey, setCheerKey] = useState(0);
@@ -264,14 +266,17 @@ export default function GroupScreen() {
   };
 
   return (
-    <SafeAreaView edges={['top']} className="flex-1 bg-bg">
-      {/* 헤더 (탐색/홈과 동일한 px-[30px] pt-4 — AI코치 버튼 위치를 다른 화면과 통일) */}
+    <View className="flex-1 bg-bg">
+      {/* 헤더 (탐색 탭과 동일한 px-[30px] pt-4 — 탭 레이아웃이 이미 SafeAreaView를 제공하므로 여기서 중복으로 감싸지 않음) */}
       <View className="flex-row items-center justify-between px-[30px] pt-4">
         <Text className="text-[28px] font-bold text-ink">내 그룹</Text>
         {tab !== 'info' ? (
-          <CoachMascotButton to={`/ai?from=${tab === 'feed' ? 'feed' : 'ranking'}`} circle={54} size={44} />
+          <CoachMascotButton
+            source={getCoachImage(coachStyle)}
+            onPress={() => router.push(`/ai?from=${tab === 'feed' ? 'feed' : 'ranking'}`)}
+          />
         ) : (
-          <View className="h-14 w-14" />
+          <View style={{ width: 54, height: 54 }} />
         )}
       </View>
 
@@ -324,6 +329,6 @@ export default function GroupScreen() {
           </Animated.View>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 }
