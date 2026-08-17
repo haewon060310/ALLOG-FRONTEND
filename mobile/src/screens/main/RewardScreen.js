@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Linking,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -156,14 +157,11 @@ export default function RewardScreen({ navigation }) {
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "#f7f6f3" },
   title: {
-    fontFamily: "Pretendard",
+    fontFamily: Platform.OS === "android" ? "sans-serif-black" : "Pretendard",
     fontSize: 28,
     fontWeight: "900",
     paddingHorizontal: 30,
     paddingTop: 16,
-    textShadowColor: "#000",
-    textShadowOffset: { width: 0.6, height: 0 },
-    textShadowRadius: 0,
   },
   content: {
     paddingHorizontal: 30,

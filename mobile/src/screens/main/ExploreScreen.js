@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import {
   Image,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -296,12 +297,9 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    fontFamily: "Pretendard",
+    fontFamily: Platform.OS === "android" ? "sans-serif-black" : "Pretendard",
     fontSize: 28,
     fontWeight: "900",
-    textShadowColor: "#000",
-    textShadowOffset: { width: 0.6, height: 0 },
-    textShadowRadius: 0,
   },
   content: {
     paddingHorizontal: 30,

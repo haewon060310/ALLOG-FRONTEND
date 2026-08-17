@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import Exercise from "../../../assets/images/ExerciseIcon.svg";
 import Sleep from "../../../assets/images/SleepIcon.svg";
 import Meal from "../../../assets/images/MealIcon.svg";
@@ -102,12 +102,9 @@ const s = StyleSheet.create({
   title: {
     paddingHorizontal: 30,
     paddingTop: 16,
-    fontFamily: "Pretendard",
+    fontFamily: Platform.OS === "android" ? "sans-serif-black" : "Pretendard",
     fontSize: 28,
     fontWeight: "900",
-    textShadowColor: "#000",
-    textShadowOffset: { width: 0.6, height: 0 },
-    textShadowRadius: 0,
   },
   content: {
     paddingHorizontal: 30,

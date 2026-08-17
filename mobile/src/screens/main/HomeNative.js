@@ -161,12 +161,9 @@ const s = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    fontFamily: "Pretendard",
+    fontFamily: Platform.OS === "android" ? "sans-serif-black" : "Pretendard",
     fontSize: 28,
     fontWeight: "900",
-    textShadowColor: "#000",
-    textShadowOffset: { width: 0.6, height: 0 },
-    textShadowRadius: 0,
   },
   content: {
     paddingHorizontal: 30,
