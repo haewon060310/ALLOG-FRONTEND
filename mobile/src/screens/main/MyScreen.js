@@ -1,4 +1,4 @@
-import { Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import Exercise from "../../../assets/images/ExerciseIcon.svg";
 import Sleep from "../../../assets/images/SleepIcon.svg";
 import Meal from "../../../assets/images/MealIcon.svg";
@@ -27,7 +27,7 @@ export default function MyScreen({ navigation }) {
   const { nickname, points } = useAppState();
   return (
     <View style={s.screen}>
-      <Text style={s.title}>마이 페이지</Text>
+      <Text className="px-[30px] pt-4 text-[28px] font-black text-ink">마이 페이지</Text>
       <ScrollView contentContainerStyle={s.content}>
         <AnimatedEntrance style={s.profile}>
           <View style={s.profileRow}>
@@ -99,13 +99,6 @@ function Metric({ label, value, Icon, red }) {
 }
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "#f7f6f3" },
-  title: {
-    paddingHorizontal: 30,
-    paddingTop: 16,
-    fontFamily: Platform.OS === "android" ? "sans-serif-black" : "Pretendard",
-    fontSize: 28,
-    fontWeight: "900",
-  },
   content: {
     paddingHorizontal: 30,
     paddingTop: 16,

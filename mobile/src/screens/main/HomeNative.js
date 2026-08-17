@@ -38,7 +38,7 @@ export default function HomeNative({ navigation }) {
   return (
     <View style={s.screen}>
       <View style={s.header}>
-        <Text style={s.logo}>홈</Text>
+        <Text className="text-[28px] font-black text-ink">홈</Text>
         <CoachMascotButton
           source={coachImage}
           onPress={() => navigation.navigate("AiCoach")}
@@ -159,11 +159,6 @@ const s = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-  },
-  logo: {
-    fontFamily: Platform.OS === "android" ? "sans-serif-black" : "Pretendard",
-    fontSize: 28,
-    fontWeight: "900",
   },
   content: {
     paddingHorizontal: 30,

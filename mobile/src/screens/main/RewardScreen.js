@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   Linking,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -53,7 +52,7 @@ export default function RewardScreen({ navigation }) {
   );
   return (
     <View style={s.screen}>
-      <Text style={s.title}>리워드</Text>
+      <Text className="px-[30px] pt-4 text-[28px] font-black text-ink">리워드</Text>
       <ScrollView contentContainerStyle={s.content}>
         <AnimatedEntrance style={s.balance}>
           <Text style={s.balanceLabel}>사용가능한 리워드 포인트</Text>
@@ -156,13 +155,6 @@ export default function RewardScreen({ navigation }) {
 }
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "#f7f6f3" },
-  title: {
-    fontFamily: Platform.OS === "android" ? "sans-serif-black" : "Pretendard",
-    fontSize: 28,
-    fontWeight: "900",
-    paddingHorizontal: 30,
-    paddingTop: 16,
-  },
   content: {
     paddingHorizontal: 30,
     paddingTop: 16,
