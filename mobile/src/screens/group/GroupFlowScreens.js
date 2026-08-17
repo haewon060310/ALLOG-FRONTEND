@@ -305,7 +305,7 @@ export function WaitingRoomScreen({ navigation, route }) {
           </View>
         ))}
       </ScrollView>
-      <View style={s.footer}>
+      <View style={[s.footer, s.waitingFooter]}>
         <Pressable
           disabled={!full}
           style={[s.primary, !full && s.disabled]}
@@ -733,6 +733,7 @@ const s = StyleSheet.create({
   },
   memberName: { fontSize: 14, fontWeight: "600" },
   footer: { paddingHorizontal: 20, paddingBottom: 28 },
+  waitingFooter: { paddingBottom: 52 },
   help: { fontSize: 12, lineHeight: 20, color: "#6b7268" },
   codeInput: {
     marginTop: 8,

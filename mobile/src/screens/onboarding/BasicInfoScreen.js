@@ -35,7 +35,6 @@ export default function BasicInfoScreen({ navigation }) {
         setBirth(form.birth);
         navigation.navigate("Habits");
       }}
-      nextLabel="다음 단계로"
       canNext={valid}
     >
       <Field label="닉네임">

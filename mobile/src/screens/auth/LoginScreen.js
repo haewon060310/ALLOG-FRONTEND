@@ -35,7 +35,7 @@ export default function LoginScreen({ navigation }) {
         onChangeText={setUserId}
         style={[s.input, { top: 201 }]}
         placeholder="아이디"
-        placeholderTextColor="#000"
+        placeholderTextColor="#bababa"
         autoCapitalize="none"
         returnKeyType="next"
       />
@@ -44,7 +44,7 @@ export default function LoginScreen({ navigation }) {
         onChangeText={setPassword}
         style={[s.input, { top: 267, height: 49 }]}
         placeholder="비밀번호"
-        placeholderTextColor="#000"
+        placeholderTextColor="#bababa"
         secureTextEntry
         returnKeyType="done"
         onSubmitEditing={enterHome}
@@ -64,7 +64,7 @@ export default function LoginScreen({ navigation }) {
           style={s.signupLink}
           onPress={() => navigation.navigate("SignUpPhone")}
         >
-          회원 가입하기
+          회원가입하기
         </Text>
       </View>
       <View style={s.line} />

@@ -32,7 +32,12 @@ export default function CompleteScreen({ navigation }) {
 }
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "#f7f6f3", paddingHorizontal: 20 },
-  body: { flex: 1, alignItems: "center", paddingTop: 80 },
+  body: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 36,
+  },
   check: {
     width: 64,
     height: 64,
@@ -78,7 +83,7 @@ const s = StyleSheet.create({
     backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 28,
+    marginBottom: 52,
   },
   buttonText: { fontSize: 15, fontWeight: "700", color: "#fff" },
 });

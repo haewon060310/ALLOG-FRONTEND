@@ -77,7 +77,7 @@ function LoginPage() {
         <input
           type="text"
           placeholder="아이디"
-          className="absolute border border-[#E7E3D8] bg-[#FFFFFF] text-[15px] font-medium leading-[35px] text-[#000000] outline-none placeholder:text-[#000000]"
+          className="absolute border border-[#E7E3D8] bg-[#FFFFFF] text-[15px] font-medium leading-[35px] text-[#000000] outline-none placeholder:text-[#bababa]"
           style={{
             left: "49px",
             top: "201px",
@@ -92,7 +92,7 @@ function LoginPage() {
         <input
           type="password"
           placeholder="비밀번호"
-          className="absolute border border-[#E7E3D8] bg-[#FFFFFF] text-[15px] font-medium leading-[35px] text-[#000000] outline-none placeholder:text-[#000000]"
+          className="absolute border border-[#E7E3D8] bg-[#FFFFFF] text-[15px] font-medium leading-[35px] text-[#000000] outline-none placeholder:text-[#bababa]"
           style={{
             left: "49px",
             top: "267px",
@@ -147,7 +147,7 @@ function LoginPage() {
             className="font-semibold leading-[35px] text-[#000000]"
             style={{ marginLeft: "6px" }}
           >
-            회원 가입하기
+            회원가입하기
           </button>
         </div>
 
