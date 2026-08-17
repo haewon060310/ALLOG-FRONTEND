@@ -17,7 +17,7 @@ import { getCoachImage } from "../../utils/coach";
 import AnimatedEntrance from "../../components/AnimatedEntrance";
 import CoachMascotButton from "../../components/CoachMascotButton";
 export default function HomeNative({ navigation }) {
-  const { coachStyle, points, hearts } = useAppState();
+  const { coachStyle, points, hearts, verifiedToday } = useAppState();
   const isFocused = useIsFocused();
   const gauge = useRef(new Animated.Value(0)).current;
   useEffect(() => {
@@ -64,12 +64,18 @@ export default function HomeNative({ navigation }) {
           <View style={s.routineTop}>
             <Text style={s.smallGreen}>오늘의 루틴</Text>
             <Text style={s.routineTitle}>하루 운동 30분</Text>
-            <Pressable
-              style={s.verify}
-              onPress={() => navigation.navigate("Camera")}
-            >
-              <Text style={s.verifyText}>인증하러 가기</Text>
-            </Pressable>
+            {verifiedToday ? (
+              <View style={[s.verify, s.verifyDone]}>
+                <Text style={s.verifyDoneText}>오늘 인증 완료 ✓</Text>
+              </View>
+            ) : (
+              <Pressable
+                style={s.verify}
+                onPress={() => navigation.navigate("Camera")}
+              >
+                <Text style={s.verifyText}>인증하러 가기</Text>
+              </Pressable>
+            )}
           </View>
           <View style={s.routineBottom}>
             <Text style={s.deadline}>마감 오후 10:00</Text>
@@ -144,14 +150,13 @@ function Card({ icon, value, label, note, onPress }) {
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "#f7f6f3" },
   header: {
-    height: 76,
     paddingHorizontal: 30,
     paddingTop: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  logo: { fontSize: 28, fontWeight: "700" },
+  logo: { fontFamily: "Pretendard", fontSize: 28, fontWeight: "900" },
   content: {
     paddingHorizontal: 30,
     paddingTop: 20,
@@ -196,6 +201,8 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   verifyText: { fontSize: 12, fontWeight: "700", color: "#e5f4e8" },
+  verifyDone: { backgroundColor: "#14453a" },
+  verifyDoneText: { fontSize: 12, fontWeight: "700", color: "#e5f4e8" },
   routineBottom: {
     height: 42,
     backgroundColor: "#fefefe",

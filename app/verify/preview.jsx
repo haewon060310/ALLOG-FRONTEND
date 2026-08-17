@@ -42,9 +42,9 @@ export default function PreviewScreen() {
       </View>
 
       <ScrollView className="flex-1 px-5" contentContainerClassName="pb-6 pt-2">
-        <View className="mb-4 items-center rounded-card bg-surface p-5 shadow-sm">
+        <View className="mb-4 items-center rounded-card bg-surface p-3 shadow-sm">
           <Text className="text-[12px] font-bold text-primary">DAY {mockGroup.day}</Text>
-          <Text className="text-[22px] font-bold text-ink">{mockGroup.title}</Text>
+          <Text className="text-[17px] font-bold text-ink">{mockGroup.title}</Text>
         </View>
 
         {/* 녹화 영상 (3:4) */}

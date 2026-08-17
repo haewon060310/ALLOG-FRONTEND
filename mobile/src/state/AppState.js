@@ -26,6 +26,7 @@ export function AppStateProvider({ children }) {
   const [lifestyle, setLifestyleState] = useState(DEFAULT_LIFESTYLE);
   const [hearts, setHeartsState] = useState(3);
   const [completedHeartEvents, setCompletedHeartEvents] = useState([]);
+  const [verifiedToday, setVerifiedToday] = useState(false);
   useEffect(() => {
     Promise.all([
       AsyncStorage.getItem(KEYS.nickname),
@@ -121,12 +122,14 @@ export function AppStateProvider({ children }) {
       lifestyle,
       hearts,
       completedHeartEvents,
+      verifiedToday,
       setNickname,
       setBirth,
       setCoachStyle,
       setLifestyle,
       claimHeartEvent,
       deductPoints,
+      setVerifiedToday,
     }),
     [
       nickname,
@@ -136,6 +139,7 @@ export function AppStateProvider({ children }) {
       lifestyle,
       hearts,
       completedHeartEvents,
+      verifiedToday,
     ],
   );
   return <Context.Provider value={value}>{children}</Context.Provider>;

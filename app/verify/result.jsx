@@ -7,6 +7,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withSequence, withTiming, E
 import Mascot from '@/components/common/Mascot';
 import { mockRetryGuide, mockVerifyFeedback } from '@/data/mockGroups.js';
 import { useVerificationStore } from '@/stores/verificationStore.js';
+import { useAppState } from '../../mobile/src/state/AppState';
 
 // 성공 화면 진입 시 마스코트가 한 번 폴짝 뛰는 연출. 착지 후엔 Mascot의 continuous sway로 이어짐.
 function HopMascot({ size }) {
@@ -39,6 +40,12 @@ export default function ResultScreen() {
   const reset = useVerificationStore((s) => s.reset);
   const isSuccess = result === 'success';
   const [praise] = useState(() => PRAISES[Math.floor(Math.random() * PRAISES.length)]);
+  const { setVerifiedToday } = useAppState();
+
+  // 인증 성공 시 홈 화면 "오늘의 루틴" 카드가 완료 상태로 바뀌도록 표시.
+  useEffect(() => {
+    if (isSuccess) setVerifiedToday(true);
+  }, [isSuccess]);
 
   const goToGroup = () => {
     reset();
