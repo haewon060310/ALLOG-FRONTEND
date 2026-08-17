@@ -110,7 +110,7 @@ const s = StyleSheet.create({
     gap: 10,
     paddingHorizontal: 20,
     paddingTop: 12,
-    paddingBottom: 28,
+    paddingBottom: Platform.OS === "android" ? 52 : 28,
     backgroundColor: "#f7f6f3",
   },
   secondary: {
