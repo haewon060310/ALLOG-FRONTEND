@@ -129,7 +129,7 @@ const s = StyleSheet.create({
   options: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
   choice: {
     height: 54,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#e7e3d8",
     borderRadius: 15,
     backgroundColor: "#fff",
@@ -137,7 +137,6 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   active: {
-    borderWidth: 2,
     borderColor: "#14453a",
     backgroundColor: "#eaf4ec",
   },

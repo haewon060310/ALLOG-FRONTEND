@@ -22,8 +22,17 @@ export default function BasicInfoScreen({ navigation }) {
   });
   const [dateOpen, setDateOpen] = useState(false);
   const set = (k, v) => setForm((x) => ({ ...x, [k]: v }));
+  const heightNum = Number(form.height);
+  const weightNum = Number(form.weight);
+  const heightError = form.height && (heightNum < 120 || heightNum > 250);
+  const weightError = form.weight && (weightNum < 30 || weightNum > 120);
   const valid =
-    form.nickname.trim() && form.birth && form.height && form.weight;
+    form.nickname.trim() &&
+    form.birth &&
+    form.height &&
+    form.weight &&
+    !heightError &&
+    !weightError;
   return (
     <OnboardingShell
       step={1}
@@ -110,10 +119,10 @@ export default function BasicInfoScreen({ navigation }) {
       </Field>
       <View style={s.row}>
         <Field label="키" half>
-          <View style={s.measureInput}>
+          <View style={[s.measureInput, heightError && s.measureInputError]}>
             <TextInput
               value={form.height}
-              onChangeText={(v) => set("height", v)}
+              onChangeText={(v) => set("height", v.replace(/\D/g, "").slice(0, 3))}
               placeholder="165"
               placeholderTextColor="#a2a2a2"
               keyboardType="number-pad"
@@ -121,12 +130,15 @@ export default function BasicInfoScreen({ navigation }) {
             />
             <Text style={s.measureUnit}>cm</Text>
           </View>
+          {heightError ? (
+            <Text style={s.fieldError}>정확히 입력해주세요</Text>
+          ) : null}
         </Field>
         <Field label="몸무게" half>
-          <View style={s.measureInput}>
+          <View style={[s.measureInput, weightError && s.measureInputError]}>
             <TextInput
               value={form.weight}
-              onChangeText={(v) => set("weight", v)}
+              onChangeText={(v) => set("weight", v.replace(/\D/g, "").slice(0, 3))}
               placeholder="50"
               placeholderTextColor="#a2a2a2"
               keyboardType="number-pad"
@@ -134,6 +146,9 @@ export default function BasicInfoScreen({ navigation }) {
             />
             <Text style={s.measureUnit}>kg</Text>
           </View>
+          {weightError ? (
+            <Text style={s.fieldError}>정확히 입력해주세요</Text>
+          ) : null}
         </Field>
       </View>
     </OnboardingShell>
@@ -240,6 +255,8 @@ const s = StyleSheet.create({
     fontWeight: "700",
     color: "#111",
   },
+  measureInputError: { borderColor: "#d9573b" },
+  fieldError: { marginTop: 6, fontSize: 11, fontWeight: "600", color: "#d9573b" },
   row: { flexDirection: "row", gap: 10 },
   choice: {
     flex: 1,

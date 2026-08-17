@@ -41,11 +41,11 @@ export default function SignUpPhoneScreen({ navigation }) {
           </Text>
           <Text style={[s.label, { top: 209 }]}>통신사</Text>
           <Pressable
-            style={s.carrier}
+            style={[s.carrier, carrierOpen && s.carrierOpen]}
             onPress={() => setCarrierOpen((value) => !value)}
           >
             <Text style={s.carrierText}>{carrier}</Text>
-            <Text>⌄</Text>
+            <Text>{carrierOpen ? "⌃" : "⌄"}</Text>
           </Pressable>
           {carrierOpen ? (
             <View style={s.carrierMenu}>
@@ -99,7 +99,7 @@ export default function SignUpPhoneScreen({ navigation }) {
                   position: "relative",
                   left: 0,
                   top: 0,
-                  width: 233,
+                  width: 343,
                   paddingRight: 60,
                 },
               ]}
@@ -210,14 +210,17 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  carrierOpen: { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 },
   carrierText: { fontSize: 12, color: "#9c9c9c" },
   carrierMenu: {
     position: "absolute",
     left: 26,
-    top: 284,
+    top: 282,
     width: 148,
     zIndex: 20,
-    borderRadius: 15,
+    borderTopWidth: 0,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
     borderWidth: 1,
     borderColor: "#e7e3d8",
     backgroundColor: "#fff",
@@ -247,7 +250,7 @@ const s = StyleSheet.create({
     position: "absolute",
     left: 26,
     top: 382,
-    width: 233,
+    width: 343,
     height: 44,
   },
   timer: {

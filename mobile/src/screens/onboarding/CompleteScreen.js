@@ -1,4 +1,45 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { Animated, Easing, Pressable, StyleSheet, Text, View } from "react-native";
+
+// 하트 하나: 통통 튀며 나타난 뒤 계속 살짝 위아래로 움직임.
+function AnimatedHeart({ delay }) {
+  const scale = useRef(new Animated.Value(0)).current;
+  const y = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.timing(scale, {
+      toValue: 1,
+      duration: 340,
+      delay,
+      easing: Easing.out(Easing.back(1.8)),
+      useNativeDriver: true,
+    }).start();
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(y, {
+          toValue: -6,
+          duration: 520,
+          delay,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(y, {
+          toValue: 0,
+          duration: 520,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    ).start();
+  }, []);
+  return (
+    <Animated.Text
+      style={[s.heart, { transform: [{ scale }, { translateY: y }] }]}
+    >
+      ♥
+    </Animated.Text>
+  );
+}
+
 export default function CompleteScreen({ navigation }) {
   return (
     <View style={s.screen}>
@@ -7,21 +48,31 @@ export default function CompleteScreen({ navigation }) {
           <Text style={s.checkText}>✓</Text>
         </View>
         <Text style={s.title}>환영합니다!{`\n`}하트 3개를 받았어요.</Text>
-        <Text style={s.hearts}>♥ ♥ ♥</Text>
+        <View style={s.heartsRow}>
+          <AnimatedHeart delay={0} />
+          <AnimatedHeart delay={120} />
+          <AnimatedHeart delay={240} />
+        </View>
         <Text style={s.copy}>
           <Text style={s.red}>하트</Text>는{" "}
           <Text style={s.bold}>그룹 참가</Text>에만 사용돼요.
         </Text>
         <View style={s.card}>
-          <Text style={s.cardText}>
-            그룹에 참가할 때 <Text style={s.red}>하트 1개</Text>를 사용해요.
+          <Text style={s.cardHead}>
+            그룹에 참가할 때 <Text style={s.red}>하트 1개</Text>를 사용해요
           </Text>
           <View style={s.line} />
-          <Text style={s.cardText}>
-            그룹 공동 성공률 80% 이상 + 개인 달성율 70% 이상
-          </Text>
-          <Text style={s.down}>↓</Text>
-          <Text style={[s.cardText, s.red]}>하트 1개를 다시 받아요.</Text>
+          <View style={s.flowRow}>
+            <View style={s.condBox}>
+              <Text style={s.condText}>
+                그룹 공동 성공률 80% 이상{`\n`}+{`\n`}개인 달성률 70% 이상
+              </Text>
+            </View>
+            <Text style={s.arrow}>→</Text>
+            <View style={s.rewardBox}>
+              <Text style={s.rewardText}>하트 1개를{`\n`}다시 받아요</Text>
+            </View>
+          </View>
         </View>
       </View>
       <Pressable style={s.button} onPress={() => navigation.replace("Home")}>
@@ -54,7 +105,14 @@ const s = StyleSheet.create({
     lineHeight: 32,
     fontWeight: "700",
   },
-  hearts: { marginTop: 24, fontSize: 34, color: "#d9573b" },
+  heartsRow: {
+    marginTop: 24,
+    flexDirection: "row",
+    gap: 12,
+    height: 40,
+    alignItems: "center",
+  },
+  heart: { fontSize: 34, color: "#d9573b" },
   copy: { marginTop: 24, fontSize: 18, fontWeight: "600", color: "#4a4a4a" },
   red: { color: "#d9573b", fontWeight: "700" },
   bold: { color: "#000", fontWeight: "700" },
@@ -66,17 +124,45 @@ const s = StyleSheet.create({
     borderRadius: 23,
     backgroundColor: "#fefefe",
     padding: 20,
-    gap: 10,
+    gap: 14,
   },
-  cardText: {
+  cardHead: {
     textAlign: "center",
     fontSize: 13,
-    fontWeight: "600",
-    lineHeight: 24,
-    color: "#4a4a4a",
+    fontWeight: "700",
+    color: "#000",
   },
   line: { height: 1, backgroundColor: "#e7e3d8" },
-  down: { textAlign: "center", color: "#bababa" },
+  flowRow: { flexDirection: "row", alignItems: "center", gap: 10 },
+  condBox: {
+    flex: 1,
+    backgroundColor: "#f7f6f3",
+    borderRadius: 14,
+    paddingVertical: 14,
+    paddingHorizontal: 10,
+  },
+  condText: {
+    textAlign: "center",
+    fontSize: 12,
+    fontWeight: "600",
+    lineHeight: 18,
+    color: "#000",
+  },
+  arrow: { fontSize: 18, fontWeight: "700", color: "#bababa" },
+  rewardBox: {
+    flex: 1,
+    backgroundColor: "#fdece5",
+    borderRadius: 14,
+    paddingVertical: 14,
+    paddingHorizontal: 10,
+  },
+  rewardText: {
+    textAlign: "center",
+    fontSize: 12,
+    fontWeight: "700",
+    lineHeight: 18,
+    color: "#d9573b",
+  },
   button: {
     height: 55,
     borderRadius: 27.5,

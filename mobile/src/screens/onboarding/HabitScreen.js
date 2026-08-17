@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Animated, Easing, Pressable, StyleSheet, Text, View } from "react-native";
 import OnboardingShell from "../../components/OnboardingShell";
 import Care from "../../../assets/images/SelfCareIcon.svg";
 import Exercise from "../../../assets/images/ExerciseIcon.svg";
@@ -44,6 +44,7 @@ export default function HabitScreen({ navigation }) {
 }
 function HabitCard({ name, sub, Icon, active, onPress }) {
   const scale = useRef(new Animated.Value(1)).current;
+  const iconScale = useRef(new Animated.Value(1)).current;
   const animate = (toValue) => {
     Animated.spring(scale, {
       toValue,
@@ -52,6 +53,25 @@ function HabitCard({ name, sub, Icon, active, onPress }) {
       useNativeDriver: true,
     }).start();
   };
+  // 선택되는 순간에만 아이콘이 한 번 살짝 커졌다 돌아옴.
+  useEffect(() => {
+    if (active) {
+      Animated.sequence([
+        Animated.timing(iconScale, {
+          toValue: 1.22,
+          duration: 120,
+          easing: Easing.out(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(iconScale, {
+          toValue: 1,
+          duration: 160,
+          easing: Easing.out(Easing.quad),
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [active]);
   const iconSize = name === "운동" ? 34 : 24;
   return (
     <Animated.View style={[s.cardWrap, { transform: [{ scale }] }]}>
@@ -61,7 +81,9 @@ function HabitCard({ name, sub, Icon, active, onPress }) {
         onPressOut={() => animate(1)}
         style={[s.card, active && s.active]}
       >
-        <Icon width={iconSize} height={iconSize} />
+        <Animated.View style={{ transform: [{ scale: iconScale }] }}>
+          <Icon width={iconSize} height={iconSize} />
+        </Animated.View>
         <Text style={s.name}>{name}</Text>
         <Text style={s.sub}>{sub}</Text>
       </Pressable>
@@ -74,7 +96,7 @@ const s = StyleSheet.create({
   card: {
     width: "100%",
     minHeight: 98,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#e7e3d8",
     backgroundColor: "#fefefe",
     borderRadius: 15,
@@ -84,7 +106,6 @@ const s = StyleSheet.create({
     gap: 4,
   },
   active: {
-    borderWidth: 2,
     borderColor: "#14453a",
     backgroundColor: "#eaf4ec",
   },
