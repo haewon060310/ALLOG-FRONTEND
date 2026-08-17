@@ -102,8 +102,12 @@ const s = StyleSheet.create({
   title: {
     paddingHorizontal: 30,
     paddingTop: 16,
+    fontFamily: "Pretendard",
     fontSize: 28,
-    fontWeight: "700",
+    fontWeight: "900",
+    textShadowColor: "#000",
+    textShadowOffset: { width: 0.6, height: 0 },
+    textShadowRadius: 0,
   },
   content: {
     paddingHorizontal: 30,

@@ -141,8 +141,13 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  signupText: { fontSize: 13, fontWeight: "500" },
-  signupLink: { marginLeft: 6, fontSize: 13, fontWeight: "600" },
+  signupText: { fontSize: 13, fontWeight: "500", color: "#6b7268" },
+  signupLink: {
+    marginLeft: 6,
+    fontSize: 13.5,
+    fontWeight: "700",
+    color: "#14453a",
+  },
   line: {
     position: "absolute",
     left: 48,
@@ -163,9 +168,11 @@ const s = StyleSheet.create({
   },
   socials: {
     position: "absolute",
-    left: 112,
+    left: 0,
+    right: 0,
     top: 568,
     flexDirection: "row",
+    justifyContent: "center",
     gap: 19,
   },
   social: { width: 34, height: 34 },

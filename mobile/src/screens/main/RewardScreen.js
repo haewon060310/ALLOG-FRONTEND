@@ -156,10 +156,14 @@ export default function RewardScreen({ navigation }) {
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "#f7f6f3" },
   title: {
+    fontFamily: "Pretendard",
     fontSize: 28,
-    fontWeight: "700",
+    fontWeight: "900",
     paddingHorizontal: 30,
     paddingTop: 16,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 0.6, height: 0 },
+    textShadowRadius: 0,
   },
   content: {
     paddingHorizontal: 30,

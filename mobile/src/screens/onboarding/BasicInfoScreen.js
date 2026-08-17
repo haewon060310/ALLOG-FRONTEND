@@ -261,7 +261,7 @@ const s = StyleSheet.create({
   choice: {
     flex: 1,
     minHeight: 54,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#e7e3d8",
     backgroundColor: "#fff",
     borderRadius: 15,
@@ -270,7 +270,6 @@ const s = StyleSheet.create({
     paddingHorizontal: 10,
   },
   active: {
-    borderWidth: 2,
     borderColor: "#14453a",
     backgroundColor: "#eaf4ec",
   },

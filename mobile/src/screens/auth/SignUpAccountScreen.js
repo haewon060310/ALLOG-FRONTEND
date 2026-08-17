@@ -26,7 +26,7 @@ export default function SignUpAccountScreen({ navigation }) {
         <TextInput
           value={user}
           onChangeText={setUser}
-          placeholder="아이디 (영문 대소문자, 4~13자)"
+          placeholder="아이디 (4~13자리 이내의 영어 대소문자 포함)"
           placeholderTextColor="#bababa"
           autoCapitalize="none"
           style={[s.input, userError && s.inputError]}
@@ -40,7 +40,7 @@ export default function SignUpAccountScreen({ navigation }) {
           value={pw}
           onChangeText={setPw}
           secureTextEntry
-          placeholder="비밀번호 (영문 대소문자+숫자, 10~12자)"
+          placeholder="비밀번호 (10~12자리 이내의 영어 대소문자, 숫자 포함)"
           placeholderTextColor="#bababa"
           style={[s.input, (pwError || mismatch) && s.inputError]}
         />
@@ -93,6 +93,8 @@ const s = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "#fefefe",
     paddingHorizontal: 16,
+    paddingVertical: 0,
+    textAlignVertical: "center",
     fontFamily: "Pretendard",
     fontSize: 13,
     fontWeight: "600",
@@ -112,6 +114,8 @@ const s = StyleSheet.create({
   confirmInput: {
     flex: 1,
     height: "100%",
+    paddingVertical: 0,
+    textAlignVertical: "center",
     fontFamily: "Pretendard",
     fontSize: 13,
     fontWeight: "600",

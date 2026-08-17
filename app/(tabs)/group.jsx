@@ -269,7 +269,7 @@ export default function GroupScreen() {
     <View className="flex-1 bg-bg">
       {/* 헤더 (탐색 탭과 동일한 px-[30px] pt-4 — 탭 레이아웃이 이미 SafeAreaView를 제공하므로 여기서 중복으로 감싸지 않음) */}
       <View className="flex-row items-center justify-between px-[30px] pt-4">
-        <Text className="text-[28px] font-bold text-ink">내 그룹</Text>
+        <Text className="text-[28px] font-black text-ink">내 그룹</Text>
         {tab !== 'info' ? (
           <CoachMascotButton
             source={getCoachImage(coachStyle)}

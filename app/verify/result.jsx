@@ -69,14 +69,14 @@ export default function ResultScreen() {
             <Text className="text-[22px] font-bold text-ink">인증 성공!</Text>
 
             {/* 패턴 피드백 */}
-            <View className="w-full max-w-[280px] flex-row gap-2">
-              <View className="flex-1 rounded-card bg-primary-tint px-3 py-2.5">
-                <Text className="text-[11px] text-muted">연속 성공</Text>
-                <Text className="text-[22px] font-bold text-primary">{mockVerifyFeedback.streak}<Text className="text-[11px] font-bold">일 🔥</Text></Text>
+            <View className="w-full max-w-[280px] flex-row gap-3">
+              <View className="flex-1 items-center gap-1.5 rounded-card border border-line bg-primary-tint py-4">
+                <Text className="text-[11px] font-semibold text-muted">🔥 연속 성공</Text>
+                <Text className="text-[20px] font-bold text-primary">{mockVerifyFeedback.streak}일</Text>
               </View>
-              <View className="flex-1 rounded-card bg-primary-tint px-3 py-2.5">
-                <Text className="text-[11px] text-muted">최근 인증</Text>
-                <Text className="pt-1 text-[15px] font-bold text-primary">{mockVerifyFeedback.bestTime}</Text>
+              <View className="flex-1 items-center gap-1.5 rounded-card border border-line bg-primary-tint py-4">
+                <Text className="text-[11px] font-semibold text-muted">⏰ 최근 인증</Text>
+                <Text className="text-[20px] font-bold text-primary">{mockVerifyFeedback.bestTime}</Text>
               </View>
             </View>
             <Text className="text-center text-[11px] text-muted">주로 {mockVerifyFeedback.bestTime}에 인증했어요. 이 페이스 그대로! 💪</Text>

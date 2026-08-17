@@ -78,33 +78,42 @@ export default function SignUpPhoneScreen({ navigation }) {
             style={[s.input, { top: 334 }]}
           />
           <View style={s.codeWrap}>
-            <TextInput
-              value={code}
-              onChangeText={(value) => {
-                setCode(value);
-                if (value.length === 6) Keyboard.dismiss();
-              }}
-              maxLength={6}
-              keyboardType="number-pad"
-              returnKeyType="done"
-              onSubmitEditing={Keyboard.dismiss}
-              inputAccessoryViewID={
-                Platform.OS === "ios" ? "verificationDone" : undefined
-              }
-              placeholder="인증번호 6자리"
-              placeholderTextColor="#bababa"
-              style={[
-                s.input,
-                {
-                  position: "relative",
-                  left: 0,
-                  top: 0,
-                  width: 343,
-                  paddingRight: 60,
-                },
-              ]}
-            />
-            <Text style={s.timer}>00:00</Text>
+            <View style={s.codeInputBox}>
+              <TextInput
+                value={code}
+                onChangeText={(value) => {
+                  setCode(value);
+                  if (value.length === 6) Keyboard.dismiss();
+                }}
+                maxLength={6}
+                keyboardType="number-pad"
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
+                inputAccessoryViewID={
+                  Platform.OS === "ios" ? "verificationDone" : undefined
+                }
+                placeholder="인증번호 6자리"
+                placeholderTextColor="#bababa"
+                style={[
+                  s.input,
+                  {
+                    position: "relative",
+                    left: 0,
+                    top: 0,
+                    width: 251,
+                    paddingRight: 60,
+                  },
+                ]}
+              />
+              <Text style={s.timer}>00:00</Text>
+            </View>
+            <Pressable
+              disabled={code.trim().length !== 6}
+              style={[s.codeConfirm, code.trim().length !== 6 && s.codeConfirmDisabled]}
+              onPress={Keyboard.dismiss}
+            >
+              <Text style={s.codeConfirmText}>확인</Text>
+            </Pressable>
           </View>
           <Pressable style={s.agree} onPress={() => setOpen(true)}>
             <CheckIcon width={19} height={19} opacity={agreed ? 1 : 0.35} />
@@ -252,7 +261,21 @@ const s = StyleSheet.create({
     top: 382,
     width: 343,
     height: 44,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
+  codeInputBox: { width: 251, height: 44 },
+  codeConfirm: {
+    width: 84,
+    height: 44,
+    borderRadius: 15,
+    backgroundColor: "#14453a",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  codeConfirmDisabled: { backgroundColor: "#bababa" },
+  codeConfirmText: { fontSize: 14, fontWeight: "700", color: "#fff" },
   timer: {
     position: "absolute",
     right: 16,

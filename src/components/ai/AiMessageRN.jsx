@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import Svg, { Circle, Line } from 'react-native-svg';
-import Animated, { FadeIn, FadeInUp, FadeInDown, useSharedValue, useAnimatedStyle, withDelay, withTiming, Easing } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInUp, FadeInDown, useSharedValue, useAnimatedStyle, useAnimatedProps, withDelay, withTiming, Easing } from 'react-native-reanimated';
 
 import Mascot from '@/components/common/Mascot';
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 // AI 코치 메시지 + 데이터 시각화 (웹 AiMessage 포팅). viz: pips/ring/columns/versus.
 // 애니메이션(막대 차오름 등)은 최종 상태로 렌더(등장 애니는 상위에서 Reanimated로).
@@ -31,12 +33,19 @@ function VizRing({ value, goal, unit, note }) {
   const r = 34;
   const circ = 2 * Math.PI * r;
   const offset = circ * (1 - value / 100);
+  const progress = useSharedValue(0);
+  useEffect(() => {
+    progress.value = withTiming(1, { duration: 900, easing: Easing.out(Easing.cubic) });
+  }, []);
+  const ringProps = useAnimatedProps(() => ({
+    strokeDashoffset: circ - (circ - offset) * progress.value,
+  }));
   return (
     <View className="mt-3 flex-row items-center gap-4">
       <View style={{ width: size, height: size }}>
         <Svg width={size} height={size} style={{ transform: [{ rotate: '-90deg' }] }}>
           <Circle cx={42} cy={42} r={r} stroke="#e7e3d8" strokeWidth={9} fill="none" />
-          <Circle
+          <AnimatedCircle
             cx={42}
             cy={42}
             r={r}
@@ -45,7 +54,7 @@ function VizRing({ value, goal, unit, note }) {
             fill="none"
             strokeLinecap="round"
             strokeDasharray={circ}
-            strokeDashoffset={offset}
+            animatedProps={ringProps}
           />
           <Line x1={42} y1={4} x2={42} y2={12} stroke="#c08a24" strokeWidth={3} strokeLinecap="round" transform={`rotate(${goal * 3.6} 42 42)`} />
         </Svg>
