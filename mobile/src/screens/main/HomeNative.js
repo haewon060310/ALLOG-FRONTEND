@@ -1,5 +1,6 @@
 import {
   Animated,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -17,7 +18,7 @@ import { getCoachImage } from "../../utils/coach";
 import AnimatedEntrance from "../../components/AnimatedEntrance";
 import CoachMascotButton from "../../components/CoachMascotButton";
 export default function HomeNative({ navigation }) {
-  const { coachStyle, points, hearts } = useAppState();
+  const { coachStyle, points, hearts, verifiedToday } = useAppState();
   const isFocused = useIsFocused();
   const gauge = useRef(new Animated.Value(0)).current;
   useEffect(() => {
@@ -66,16 +67,19 @@ export default function HomeNative({ navigation }) {
             <Text style={s.smallGreen}>오늘의 루틴</Text>
             <Text style={s.routineTitle}>하루 운동 30분</Text>
             <Pressable
-              style={s.verify}
+              disabled={verifiedToday}
+              style={[s.verify, verifiedToday && s.verifyDone]}
               onPress={() => navigation.navigate("Camera")}
             >
-              <Text style={s.verifyText}>인증하러 하기</Text>
+              <Text style={s.verifyText}>
+                {verifiedToday ? "인증 완료" : "인증하러 가기"}
+              </Text>
             </Pressable>
           </View>
           <View style={s.routineBottom}>
             <Text style={s.deadline}>마감 오후 10:00</Text>
             <View style={s.vline} />
-            <Text style={s.deadlineRemaining}>3시간 12분 남음</Text>
+            <Text style={s.deadline}>3시간 12분 남음</Text>
           </View>
         </AnimatedEntrance>
         <AnimatedEntrance delay={120}>
@@ -88,10 +92,10 @@ export default function HomeNative({ navigation }) {
                 <Chart width={16} height={16} />
                 <Text style={s.statLabel}>개인 순위</Text>
               </View>
-              <Text>
+              <View style={s.statValueRow}>
                 <Text style={s.statBig}>2</Text>
                 <Text style={s.statLabel}> 위 / 5명</Text>
-              </Text>
+              </View>
             </View>
             <View style={s.vlineTall} />
             <View style={s.stat}>
@@ -99,10 +103,10 @@ export default function HomeNative({ navigation }) {
                 <Fire width={16} height={16} />
                 <Text style={s.statLabel}>연속 성공</Text>
               </View>
-              <Text>
+              <View style={s.statValueRow}>
                 <Text style={s.statBig}>3</Text>
                 <Text style={s.daySuffix}> 일째</Text>
-              </Text>
+              </View>
             </View>
           </Pressable>
         </AnimatedEntrance>
@@ -203,11 +207,12 @@ const s = StyleSheet.create({
     width: "100%",
     height: 35,
     borderRadius: 15,
-    backgroundColor: "#14453a",
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
   },
   verifyText: { fontSize: 12, fontWeight: "700", color: "#e5f4e8" },
+  verifyDone: { backgroundColor: "#bababa" },
   routineBottom: {
     height: 42,
     backgroundColor: "#fefefe",
@@ -217,7 +222,6 @@ const s = StyleSheet.create({
     gap: 16,
   },
   deadline: { fontSize: 13, fontWeight: "700" },
-  deadlineRemaining: { fontSize: 13, fontWeight: "600" },
   vline: { width: 1, height: 16, backgroundColor: "#e7e3d8" },
   stats: {
     height: 81,
@@ -229,12 +233,16 @@ const s = StyleSheet.create({
     alignItems: "center",
   },
   stat: { flex: 1, alignItems: "center", gap: 4 },
+  statValueRow: { flexDirection: "row", alignItems: "baseline" },
   statLabel: { fontSize: 12, fontWeight: "700" },
   statBig: {
-    fontFamily: "Pretendard",
+    fontFamily: Platform.OS === "android" ? "sans-serif-black" : "Pretendard",
     fontSize: 25,
     fontWeight: "900",
     color: "#14453a",
+    textShadowColor: "#14453a",
+    textShadowOffset: { width: 0.7, height: 0 },
+    textShadowRadius: 0,
   },
   daySuffix: { fontSize: 12, fontWeight: "700" },
   vlineTall: { width: 1, height: 47, backgroundColor: "#e7e3d8" },

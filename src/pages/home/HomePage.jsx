@@ -112,7 +112,7 @@ function HomePage() {
                 <span className="text-[12px] font-bold text-black">개인 순위</span>
               </div>
               <p className="text-black">
-                <span className="text-[25px] font-bold text-[#14453a]">2</span>
+                <span className="text-[25px] font-black text-[#14453a]">2</span>
                 <span className="text-[12px] font-bold"> 위 / 5명</span>
               </p>
             </button>
@@ -129,7 +129,7 @@ function HomePage() {
                 <span className="text-[12px] font-bold text-black">연속 성공</span>
               </div>
               <p className="text-black">
-                <span className="text-[25px] font-bold text-[#14453a]">3</span>
+                <span className="text-[25px] font-black text-[#14453a]">3</span>
                 <span className="text-[18px] font-bold">일째</span>
               </p>
             </button>

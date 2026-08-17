@@ -25,6 +25,7 @@ export function AppStateProvider({ children }) {
   const [coachStyle, setCoachStyleState] = useState("응원형");
   const [lifestyle, setLifestyleState] = useState(DEFAULT_LIFESTYLE);
   const [hearts, setHeartsState] = useState(3);
+  const [verifiedToday, setVerifiedToday] = useState(false);
   const [completedHeartEvents, setCompletedHeartEvents] = useState([]);
   useEffect(() => {
     Promise.all([
@@ -120,6 +121,7 @@ export function AppStateProvider({ children }) {
       coachStyle,
       lifestyle,
       hearts,
+      verifiedToday,
       completedHeartEvents,
       setNickname,
       setBirth,
@@ -127,6 +129,7 @@ export function AppStateProvider({ children }) {
       setLifestyle,
       claimHeartEvent,
       deductPoints,
+      setVerifiedToday,
     }),
     [
       nickname,
@@ -135,6 +138,7 @@ export function AppStateProvider({ children }) {
       coachStyle,
       lifestyle,
       hearts,
+      verifiedToday,
       completedHeartEvents,
     ],
   );

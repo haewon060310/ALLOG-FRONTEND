@@ -12,6 +12,7 @@ import {
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useVideoPlayer, VideoView } from "expo-video";
 import AnimatedEntrance from "../../components/AnimatedEntrance";
+import { useAppState } from "../../state/AppState";
 const mascot = require("../../../assets/images/mascot.png");
 function Header({ navigation, title = "오늘의 인증", green = false }) {
   return (
@@ -272,6 +273,10 @@ export function VerificationLoadingScreen({ navigation }) {
 }
 export function VerificationResultScreen({ navigation, route }) {
   const success = (route.params?.result || "success") === "success";
+  const { setVerifiedToday } = useAppState();
+  useEffect(() => {
+    if (success) setVerifiedToday(true);
+  }, [success, setVerifiedToday]);
   return (
     <View style={s.result}>
       <View style={s.resultBody}>

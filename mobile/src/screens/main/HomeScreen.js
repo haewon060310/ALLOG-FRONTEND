@@ -167,7 +167,14 @@ const s = StyleSheet.create({
   },
   stat: { flex: 1, alignItems: "center", gap: 4 },
   statLabel: { fontSize: 12, fontWeight: "700" },
-  statBig: { fontSize: 25, fontWeight: "700", color: "#14453a" },
+  statBig: {
+    fontSize: 25,
+    fontWeight: "900",
+    color: "#14453a",
+    textShadowColor: "#14453a",
+    textShadowOffset: { width: 0.7, height: 0 },
+    textShadowRadius: 0,
+  },
   vlineTall: { width: 1, height: 47, backgroundColor: "#e7e3d8" },
   gaugeCard: {
     borderRadius: 14,
