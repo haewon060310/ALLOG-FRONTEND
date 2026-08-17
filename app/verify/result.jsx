@@ -39,15 +39,10 @@ export default function ResultScreen() {
   const result = useVerificationStore((s) => s.result) ?? 'success';
   const reset = useVerificationStore((s) => s.reset);
   const isSuccess = result === 'success';
-  const { setVerifiedToday } = useAppState();
   const [praise] = useState(() => PRAISES[Math.floor(Math.random() * PRAISES.length)]);
   const { setVerifiedToday } = useAppState();
 
   // 인증 성공 시 홈 화면 "오늘의 루틴" 카드가 완료 상태로 바뀌도록 표시.
-  useEffect(() => {
-    if (isSuccess) setVerifiedToday(true);
-  }, [isSuccess]);
-
   useEffect(() => {
     if (isSuccess) setVerifiedToday(true);
   }, [isSuccess, setVerifiedToday]);
